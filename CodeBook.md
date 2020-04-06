@@ -7,3 +7,9 @@ This is the codebook to go with my submission for the peer-reviewed assignment o
   - Description of the variables within the dataset
   - how to load 'tidydata' into R
   - about the dataset
+2. How the 'tidydata' dataset was produced
+3. A description of the features upon which the averages were based
+  - Information on how the features were produced from the raw data
+  - Information on the collection of raw data
+  - About the original dataset
+4. License
