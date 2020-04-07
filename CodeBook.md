@@ -97,7 +97,7 @@ The following table describes all the variables for the 'tidyData' table:
 |   67  | Avrg-fBodyGyroJerkMag-mean() | numeric | [-1, 1] | Frequency domain, Average of means for the magnitude of jerk, of angular velocity.                        |
 |   68  | Avrg-fBodyGyroJerkMag-std()  | numeric | [-1, 1] | Frequency domain, Average of standard deviation for the magnitude of jerk, of angular velocity.           |
 
-### How to load 'tidydata' into R
+### How to load 'tidyData' into R
 
 To properly load the the 'tidyData' table into R, use the following command:
 ```
