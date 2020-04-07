@@ -96,3 +96,106 @@ The following table describes all the variables for the 'tidyData' table:
 |   66  | Avrg-fBodyGyroMag-std()      | numeric | [-1, 1] | Frequency domain, Average of standard deviations for the magnitude of angular velocity.                   |
 |   67  | Avrg-fBodyGyroJerkMag-mean() | numeric | [-1, 1] | Frequency domain, Average of means for the magnitude of jerk, of angular velocity.                        |
 |   68  | Avrg-fBodyGyroJerkMag-std()  | numeric | [-1, 1] | Frequency domain, Average of standard deviation for the magnitude of jerk, of angular velocity.           |
+
+### How to load 'tidydata' into R
+
+To properly load the the 'tidyData' table into R, use the following command:
+```
+tidyData <- read.table(file = "tidyData.txt", header = TRUE, check.names = FALSE, dec = "."
+```
+Another option is to load the Data.Table package and then use fread() for a faster and simpler load:
+```
+library(data.table)
+tidyData <- fread("tidyData.txt")
+```
+
+### About the 'tidyData' table
+
+This dataset was created for the needs of:
+
+> Course 3: 'Getting and Cleaning Data',
+> from 'Data Science Specialisation',
+> by Johns Hopkins University via Coursera
+
+> The course is taught by:
+>   - Jeff Leek, Phd
+>   - Roger D. Peng, Phd
+>   - Brian Caffo, Phd
+  
+The data table can be reproduced using the script available at the Github repository:
+[Getting and Cleaning Data Assignment](https://github.com/EccentricTom/Getting-and-Cleaning-Data-Course-Project)
+The following should be taken into account before attempting to reproduce the data:
+  - The data was downloaded and processed using the script [run_analysis.R](https://github.com/EccentricTom/Getting-and-Cleaning-Data-Course-Project/blob/master/run_analysis.R)
+  - The data was sourced from the url:  "http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" at 'Monday April 6 12:12:05 2020' in the timezone GMT + 8 (Asia/Singapore).
+  - The script was executed in RStudio (version 3.6.1)
+  - The library 'Data.Table' version 1.12.8 was used
+  - This is the output of 'R.version:
+```
+platform       x86_64-w64-mingw32          
+arch           x86_64                      
+os             mingw32                     
+system         x86_64, mingw32             
+status                                     
+major          3                           
+minor          6.1                         
+year           2019                        
+month          07                          
+day            05                          
+svn rev        76782                       
+language       R                           
+version.string R version 3.6.1 (2019-07-05)
+nickname       Action of the Toes
+```
+***
+### How the 'tidyData' table was produced
+
+To produced the 'tidyData' data table, the script '[run_analysis.R](https://github.com/EccentricTom/Getting-and-Cleaning-Data-Course-Project/blob/master/run_analysis.R)' was written and used.
+It performs the following tasks:
+1. It creates and sets a new working directory
+2. Downloads the zip file from the url: "http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones" and unzips the contents in the new directory.
+3. It loads the activity names and measurements data from the text files:
+    - "activity_labels.txt"
+    - "features.txt"
+  from the main 'UCI HAR Dataset" folder, selecting only the mean and standard deviation measurements.
+4. Reads and binds the three text files from the "train" and "test" folders, and then binds the resulting two dataframes into 1 large dataset by rows.
+5. Adds the appropriate acitivity labels to the new large dataset.
+6. Groups the new tidy data table by subject and activity
+7. Summarise each variable to find the average for the grouped variables.
+8. Ungroup the data table to respect the rules of tidy Data.
+9. Write the data into a CSV file and a text file with these commands:
+```
+fwrite(x = combined, file = "activityData.csv", quote = FALSE)
+write.table(combined, "tidyData.txt", row.names = FALSE)
+```
+***
+##  Description of the features upon which the averages were based
+### Information on how the features were produced from the raw data
+
+The select features were produced as explained in the "features_info.txt" file of the original dataset:
+
+> The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+> 
+> Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+> 
+> Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+> 
+> These signals were used to estimate variables of the feature vector for each pattern:  
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+> 
+> tBodyAcc-XYZ
+> tGravityAcc-XYZ
+> tBodyAccJerk-XYZ
+> tBodyGyro-XYZ
+> tBodyGyroJerk-XYZ
+> tBodyAccMag
+> tGravityAccMag
+> tBodyAccJerkMag
+> tBodyGyroMag
+> tBodyGyroJerkMag
+> fBodyAcc-XYZ
+> fBodyAccJerk-XYZ
+> fBodyGyro-XYZ
+> fBodyAccMag
+> fBodyAccJerkMag
+> fBodyGyroMag
+> fBodyGyroJerkMag
