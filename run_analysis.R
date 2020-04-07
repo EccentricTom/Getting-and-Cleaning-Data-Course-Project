@@ -55,5 +55,6 @@ combined[["SubjectNum"]] <- as.factor(combined[, SubjectNum])
 combined <- melt(data = combined, id = c("SubjectNum", "Activity"))
 combined <- dcast(data = combined, SubjectNum + Activity ~ variable, fun.aggregate = mean)
 
-## Finally, export a clean CSV table ##
+## Finally, export a clean CSV table and a text file ##
 fwrite(x = combined, file = "activityData.csv", quote = FALSE)
+write.table(combined, "tidyData.txt", row.names = FALSE)
